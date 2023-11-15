@@ -12,10 +12,6 @@ export function Stat() {
     const [abilities, set_abilities] = useState<Ability_t[]>([]);
     const [skills, set_skills] = useState<Skill_t[]>([]);
 
-    // React Element to display
-    const [abilities_display, set_abilities_display] = useState<any>()
-    const [skills_display, set_skills_display] = useState<any>()
-
     // Initialize all the data from the dnd5e api
     useEffect(() => {
 
@@ -90,10 +86,6 @@ export function Stat() {
 
 
     useEffect(() => {
-        // If our abilities variable change, we need to re-render the abilities_display
-        set_abilities_display(
-            abilities.map((ability) => <AbilityDisplay ability={ability} key={ability.type} />))
-
         // It will also change the skills since they depend of an ability modifier
         set_skills((skills) => {
             let temp: Skill_t[] = cloneDeep(skills);
@@ -107,21 +99,15 @@ export function Stat() {
     }, [abilities])
 
 
-    useEffect(() => {
-        // If the skills change, we re-render the skills_display
-        set_skills_display(skills.map((skill: Skill_t) => (
-            <SkillDisplay skill={skill} key={skill.name} />)))
-    }, [skills])
-
     // React Element to render
     return (
         <div className="App" >
             <div className='d-flex mx-2 w-50'>
                 <div className='d-flex row'>
-                    {abilities_display}
+                    {abilities.map((ability) => <AbilityDisplay ability={ability} key={ability.type} />)}
                 </div>
                 <div className='d-flex row'>
-                    {skills_display}
+                    {skills.map((skill: Skill_t) => <SkillDisplay skill={skill} key={skill.name} />)}
                 </div>
             </div>
         </div>
