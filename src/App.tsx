@@ -2,10 +2,11 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap.css";
 import "./extend.css"
 import React, { useState } from 'react';
-import { Stat } from './pages/Stat';
+import { Stat } from './pages/Stats';
 import { Race } from './pages/Races';
+import { Class } from './pages/Classes';
 
-const Menu = ["Races", "Class", "Stats"]
+const Menu = ["Race", "Class", "Stats", "Attacks"]
 
 function App() {
   // Number to represent the menu display
@@ -25,6 +26,7 @@ function App() {
         <MenuDisplay />
         <div className='d-flex row w-75 ms-5'>
           {menu_index === 0 && <Race/>}
+          {menu_index === 1 && <Class/>}
           {menu_index === 2 && <Stat />}
         </div>
       </div>
