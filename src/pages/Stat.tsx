@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "../extend.css"
 import React, { useEffect, useState } from 'react';
 import { Skill_t } from '../types/Skill_t';
-import { Ability_t } from '../types/Ability'
+import { Ability_t } from '../types/Ability_t'
 import cloneDeep from 'lodash/fp/cloneDeep'
 
 
@@ -12,11 +12,11 @@ export function Stat() {
     const [abilities, set_abilities] = useState<Ability_t[]>([]);
     const [skills, set_skills] = useState<Skill_t[]>([]);
 
-    // React Element to display 
+    // React Element to display
     const [abilities_display, set_abilities_display] = useState<any>()
     const [skills_display, set_skills_display] = useState<any>()
 
-    // Initialize all the data from the dnd5e api 
+    // Initialize all the data from the dnd5e api
     useEffect(() => {
 
         // Fetch list of abilities
