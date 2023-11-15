@@ -4,8 +4,9 @@ import "./extend.css"
 import React, { useState } from 'react';
 import { Stat } from './pages/Stat';
 import { Race } from './pages/Races';
+import { Informations } from './pages/Informations';
 
-const Menu = ["Races", "Class", "Stats"]
+const Menu = ["Races", "Class", "Stats", "infos"]
 
 function App() {
   // Number to represent the menu display
@@ -26,6 +27,7 @@ function App() {
         <div className='d-flex row w-75 ms-5'>
           {menu_index === 0 && <Race/>}
           {menu_index === 2 && <Stat />}
+          {menu_index === 3 && <Informations />}
         </div>
       </div>
     </div>
