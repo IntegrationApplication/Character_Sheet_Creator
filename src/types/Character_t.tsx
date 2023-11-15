@@ -1,5 +1,6 @@
 import { Ability_t } from "./Ability_t";
 import { Attack_t } from "./Attack_t";
+import { Race_t } from "./Race_t";
 import { Skill_t } from "./Skill_t";
 import { Spell_t } from "./Spell_t";
 
@@ -19,6 +20,7 @@ export class Character_t {
     abilities: Array<Ability_t> = []
     attacks: Array<Attack_t> = [];
     spell: Array<Spell_t> = [];
+    race: Race_t = { name: "", description: "" };
 
     constructor(id: number) {
         this.id = id;
