@@ -12,11 +12,12 @@ const Menu = ["Race", "Class", "Stats", "Attacks", "Infos"]
 function App() {
   // Number to represent the menu display
   const [menu_index, set_menu_index] = useState<number>(0);
-  const [character, setCharacter] = useState<Character_t>();
+  // TODO: find a real id
+  const [character, setCharacter] = useState<Character_t>(new Character_t(1));
 
   // Function to represent the menu
   const MenuDisplay = () => <div className='d-flex row'>
-    {Menu.map((el, index) => <button className='btn btn-primary m-auto' onClick={
+    {Menu.map((el, index) => <button className='btn btn-primary m-auto' key={"menuBtn"+index} onClick={
       () => { set_menu_index(index) }
     }>{el}</button>)}
   </div>
@@ -30,7 +31,7 @@ function App() {
           {menu_index === 0 && <Race/>}
           {menu_index === 1 && <Class/>}
           {menu_index === 2 && <Stat />}
-          {menu_index === 4 && <Informations character={character!} setCharacter={setCharacter!}/>}
+          {menu_index === 4 && <Informations character={character} setCharacter={setCharacter}/>}
         </div>
       </div>
     </div>
