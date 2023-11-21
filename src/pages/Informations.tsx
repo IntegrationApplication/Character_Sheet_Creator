@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { Character_t } from '../types/Character_t'
 
 /******************************************************************************/
 /*                                 text form                                  */
@@ -55,9 +56,15 @@ const NumberForm: React.FC<NumberFormType> = ({ desc, id, maxValue, variable, se
 /*                                informations                                */
 /******************************************************************************/
 
-export function Informations() {
+interface InformationsType {
+    character: Character_t;
+    // note: je ne comprends pas comment ça marche pour ça, apparemment, le
+    // Character_t peut être unedinfed dans les <> et je sais pas comment lui
+    // dire que ça doit pas être le cas dans le App.
+    setCharacter: React.Dispatch<React.SetStateAction<Character_t | undefined>>;
+}
+export function Informations({character, setCharacter}: InformationsType) {
     // TODO: look how to use classes in order not to declare so much variables
-    const [name, setName] = useState<string>("");
     const [level, setLevel] = useState<number>(0);
     const [hp, setHp] = useState<number>(0);
     const [hpMax, setHpMax] = useState<number>(0); // note: may use useEffect as it should be the same as HP on CS creation
@@ -70,7 +77,7 @@ export function Informations() {
 
     const submitInformations = (e: any) => {
         e.preventDefault();
-        console.log(name);
+        console.log(character.name);
         // TODO
     }
 
@@ -80,13 +87,17 @@ export function Informations() {
             <h2>Character's Informations</h2>
 
             <form className="mt-3" onSubmit={(e) => submitInformations(e)}>
-                <TextForm  desc="Name:" id="name" variable={name} setVariable={setName} />
-                <NumberForm desc="Level:" id="level" maxValue={20} variable={level} setVariable={setLevel} />
-                <NumberForm desc="HP:" id="hp" variable={hp} setVariable={setHp} />
-                <NumberForm desc="HP max:" id="hpmax" variable={hpMax} setVariable={setHpMax} />
-                <NumberForm desc="Initiative:" id="initiative" maxValue={20} variable={initiative} setVariable={setInitiative} />
-                <NumberForm desc="Spell save DC:" id="spellSaveDC" maxValue={20} variable={spellSaveDC} setVariable={setSpellSaveDC} />
-                <NumberForm desc="Spell casting ability:" id="spellCastAbility" maxValue={20} variable={spellCastAbility} setVariable={setSpellCastAbility} />
+                <TextForm  desc="Name:" id="name" variable={character.name} setVariable={(value: string) => {
+                    let tmp: Character_t = character;
+                    character.name = value;
+                    setCharacter(character);
+                }} />
+                <NumberForm desc="Level:" id="level" maxValue={20} variable={character.level} setVariable={setLevel} />
+                <NumberForm desc="HP:" id="hp" variable={character.hp} setVariable={setHp} />
+                <NumberForm desc="HP max:" id="hpmax" variable={character.hpMax} setVariable={setHpMax} />
+                <NumberForm desc="Initiative:" id="initiative" maxValue={20} variable={character.initiative} setVariable={setInitiative} />
+                <NumberForm desc="Spell save DC:" id="spellSaveDC" maxValue={20} variable={character.spellSaveDC} setVariable={setSpellSaveDC} />
+                <NumberForm desc="Spell casting ability:" id="spellCastAbility" maxValue={20} variable={character.spellCastAbility} setVariable={setSpellCastAbility} />
                 <div>
                     <button
                         type="submit" className="btn btn-primary mt-3"

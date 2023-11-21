@@ -1,6 +1,7 @@
 import './App.css';
 import "bootstrap/dist/css/bootstrap.css";
 import "./extend.css"
+import { Character_t } from "./types/Character_t"
 import React, { useState } from 'react';
 import { Stat } from './pages/Stats';
 import { Race } from './pages/Races';
@@ -11,6 +12,7 @@ const Menu = ["Race", "Class", "Stats", "Attacks", "Infos"]
 function App() {
   // Number to represent the menu display
   const [menu_index, set_menu_index] = useState<number>(0);
+  const [character, setCharacter] = useState<Character_t>();
 
   // Function to represent the menu
   const MenuDisplay = () => <div className='d-flex row'>
@@ -28,7 +30,7 @@ function App() {
           {menu_index === 0 && <Race/>}
           {menu_index === 1 && <Class/>}
           {menu_index === 2 && <Stat />}
-          {menu_index === 4 && <Informations />}
+          {menu_index === 4 && <Informations character={character!} setCharacter={setCharacter!}/>}
         </div>
       </div>
     </div>
