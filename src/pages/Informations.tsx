@@ -7,18 +7,44 @@ import React, { useEffect, useState } from 'react';
 // NOTE: this may be moved in it's own file (in a utility/form directory) if
 // required
 interface TextFormType {
-    type: string
     desc: string,
     id: string,
-    variable: any, // needs to be any as we can have multiple input type
+    variable: string,
     setVariable: React.Dispatch<React.SetStateAction<any>>,
 }
-const TextForm: React.FC<TextFormType> = ({ type, desc, id, variable, setVariable }) => {
+const TextForm: React.FC<TextFormType> = ({ desc, id, variable, setVariable }) => {
     return (
         <label className="row mt-3" htmlFor="name">
             <div className="col">{desc}</div>
-            <input className="col" type={type} id={id} value={variable}
+            <input className="col" type="string" id={id} value={variable}
                 onChange={(e) => setVariable(e.target.value)}
+                required>
+            </input>
+        </label>
+    );
+}
+
+interface NumberFormType {
+    desc: string,
+    id: string,
+    maxValue?: number,
+    variable: number,
+    setVariable: React.Dispatch<React.SetStateAction<number>>,
+}
+const NumberForm: React.FC<NumberFormType> = ({ desc, id, maxValue, variable, setVariable }) => {
+    return (
+        <label className="row mt-3" htmlFor="name">
+            <div className="col">{desc}</div>
+            <input className="col" type="number" id={id} value={variable}
+                onChange={(e) => {
+                    let value: number = +e.target.value;
+                    if (maxValue !== undefined && value > maxValue) {
+                        value = maxValue;
+                    } else if (value < 0) {
+                        value = 0;
+                    }
+                    setVariable(value)
+                }}
                 required>
             </input>
         </label>
@@ -37,7 +63,6 @@ export function Informations() {
     const [hpMax, setHpMax] = useState<number>(0); // note: may use useEffect as it should be the same as HP on CS creation
     // const [hitDice, setHitDice] = useState<number>(0); // TODO
     const [initiative, setInitiative] = useState<number>(0);
-    const [proefficiencyBunus, setProefficiencyBunus] = useState<number>(0);
     // NOTE: this may be moved in another section
     const [spellSaveDC, setSpellSaveDC] = useState<number>(0);
     const [spellCastAbility, setSpellCastAbility] = useState<number>(0);
@@ -55,18 +80,18 @@ export function Informations() {
             <h2>Character's Informations</h2>
 
             <form className="mt-3" onSubmit={(e) => submitInformations(e)}>
-                <TextForm type="text" desc="Name:" id="name" variable={name} setVariable={setName} />
-                <TextForm type="number" desc="Level:" id="level" variable={level} setVariable={setLevel} />
-                <TextForm type="number" desc="HP:" id="hp" variable={hp} setVariable={setHp} />
-                <TextForm type="number" desc="HP max:" id="hpmax" variable={hpMax} setVariable={setHpMax} />
-                <TextForm type="number" desc="Initiative:" id="initiative" variable={initiative} setVariable={setInitiative} />
-                <TextForm type="number" desc="Proefficiency bonus:" id="proefficiencyBunus" variable={proefficiencyBunus} setVariable={setProefficiencyBunus} />
-                <TextForm type="number" desc="Spell save DC:" id="spellSaveDC" variable={spellSaveDC} setVariable={setSpellSaveDC} />
-                <TextForm type="number" desc="Spell casting ability:" id="spellCastAbility" variable={spellCastAbility} setVariable={setSpellCastAbility} />
+                <TextForm  desc="Name:" id="name" variable={name} setVariable={setName} />
+                <NumberForm desc="Level:" id="level" maxValue={20} variable={level} setVariable={setLevel} />
+                <NumberForm desc="HP:" id="hp" variable={hp} setVariable={setHp} />
+                <NumberForm desc="HP max:" id="hpmax" variable={hpMax} setVariable={setHpMax} />
+                <NumberForm desc="Initiative:" id="initiative" maxValue={20} variable={initiative} setVariable={setInitiative} />
+                <NumberForm desc="Spell save DC:" id="spellSaveDC" maxValue={20} variable={spellSaveDC} setVariable={setSpellSaveDC} />
+                <NumberForm desc="Spell casting ability:" id="spellCastAbility" maxValue={20} variable={spellCastAbility} setVariable={setSpellCastAbility} />
                 <div>
                     <button
                         type="submit" className="btn btn-primary mt-3"
-                        onSubmit={submitInformations}>passer la commande
+                        onSubmit={submitInformations}>TODO: remove this button
+                        and make a global form
                     </button>
                 </div>
                 <div className="warning">{errMsg}</div>
