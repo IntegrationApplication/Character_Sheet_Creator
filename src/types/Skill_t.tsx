@@ -10,6 +10,5 @@ export class Skill_t {
         this.ability = ability;
         this.proefficient = proefficient;
         this.coeff = coeff;
-
     }
 }

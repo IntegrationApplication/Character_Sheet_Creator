@@ -10,6 +10,7 @@ import { Character_t } from './types/Character_t';
 import { Ability_t } from './types/Ability_t';
 import { Skill_t } from './types/Skill_t';
 import { Race_t } from './types/Race_t';
+import { Class_t } from './types/Class_t';
 
 const Menu = ["Race", "Class", "Stats", "Attacks", "Infos"]
 
@@ -22,6 +23,12 @@ function App() {
   const [abilities, set_abilities] = useState<Ability_t[]>([]);
   const [skills, set_skills] = useState<Skill_t[]>([]);
   const [savings, set_savings] = useState<Skill_t[]>([]);
+  const [races, set_races] = useState<string[]>([]);
+  const [raceSelected, set_raceSelected] = useState<string>("");
+  const [raceInfo, set_raceInfo] = useState<Race_t>({ name: "name", description: "description" })
+  const [classes, set_classes] = useState<string[]>([]);
+  const [classSelected, set_ClassSelected] = useState<string>("");
+  const [classInfo, set_classInfo] = useState<Class_t>({ name: "name", description: "description" })
 
   // Initialize all the data from the dnd5e api
   useEffect(() => {
@@ -69,19 +76,21 @@ function App() {
       .then((skills: Skill_t[]) => {
         set_skills(skills)
       })
-  }, [])
 
-  const [races, set_races] = useState<string[]>([]);
-  const [raceSelected, set_raceSelected] = useState<string>("");
-  const [raceInfo, set_raceInfo] = useState<Race_t>({ name: "name", description: "description" })
-
-  useEffect(() => {
     let temp: string[];
     fetch("https://www.dnd5eapi.co/api/races")
       .then((data: any) => data.json())
       .then((data: any) => {
         temp = data.results.map((races: any) => races.index)
         set_races(temp)
+      })
+
+    temp = [];
+    fetch("https://www.dnd5eapi.co/api/classes")
+      .then((data: any) => data.json())
+      .then((data: any) => {
+        temp = data.results.map((races: any) => races.index)
+        set_classes(temp)
       })
   }, [])
 
@@ -93,6 +102,15 @@ function App() {
         set_raceInfo({ name: raceSelected, description: `${data.alignment} ${data.language_desc} ${data.size_description}` })
       })
   }, [raceSelected])
+
+  useEffect(() => {
+    fetch(`https://www.dnd5eapi.co/api/classes/${classSelected}`)
+      .then((data: any) => data.json())
+      .then((data: any) => {
+        set_classInfo({ name: classSelected, description: `${data.proficiencies?.map((el: any) => `${el.name} `)}` })
+      })
+  }, [classSelected])
+
 
 
   // Function to represent the menu
@@ -109,7 +127,7 @@ function App() {
         <MenuDisplay />
         <div className='d-flex row w-75 ms-5'>
           {menu_index === 0 && <Race raceInfo={raceInfo} set_raceInfo={set_raceInfo} set_raceSelected={set_raceSelected} raceSelected='' races={races} />}
-          {menu_index === 1 && <Class />}
+          {menu_index === 1 && <Class classes={classes} classInfo={classInfo} classSelected={classSelected} set_ClassSelected={set_ClassSelected} set_classInfo={set_classInfo} set_classes={set_classes} />}
           {menu_index === 2 && <Stat abilities={abilities} set_abilities={set_abilities} skills={skills} set_skills={set_skills} />}
           {menu_index === 4 && <Informations />}
         </div>
@@ -121,10 +139,19 @@ function App() {
           ch.Abilities = abilities
           ch.Skills = skills
           ch.Race = raceInfo
+          let channelId = 0, PlayerID = 0
+
           // TODO FETCH HERE
-          console.log(JSON.stringify(ch))
-        }
-      }> Valider Personnage </button>
+          fetch(`https://localhost:7145/Character/CreateCharacter?idPlayer=${channelId}&idGame=${PlayerID}`,
+            {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(ch)
+            });
+        }}> Valider Personnage </button>
     </div>
   );
 }
