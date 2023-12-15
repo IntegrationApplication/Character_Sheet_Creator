@@ -60,26 +60,26 @@ export class Character_t {
     Race: Race_t = { name: "", description: "" };
 
     fromDTO(this: Character_t, dto: CharacterDTO_t) {
-        this.Id = dto.ID;
-        this.Name = dto.Name;
-        this.Level = dto.Level;
-        this.Class = new Class_t(dto.ClassName);
-        this.Ac = dto.Ac;
-        this.Hp = dto.Hp;
-        this.HpMax = dto.HpMax;
-        this.hitdice = [ dto.HitDiceNumber, dto.HitDiceValue ];
-        this.SpellSaveDC = dto.SpellSaveDC;
-        this.SpellCastAbility = dto.SpeelCastAbility;
-        this.Initiative = dto.Initiative;
-        this.ProefficiencyBunus = dto.ProefficiencyBonus;
+        this.Id = dto.id;
+        this.Name = dto.name;
+        this.Level = dto.level;
+        this.Class = new Class_t(dto.className);
+        this.Ac = dto.ac;
+        this.Hp = dto.hp;
+        this.HpMax = dto.hpMax;
+        this.hitdice = [ dto.hitDiceNumber, dto.hitDiceValue ];
+        this.SpellSaveDC = dto.spellSaveDC;
+        this.SpellCastAbility = dto.speelCastAbility;
+        this.Initiative = dto.initiative;
+        this.ProefficiencyBunus = dto.proefficiencyBonus;
 
         // update stats
         for (let i = 0; i < 6; ++i) {
             this.Abilities.push(new Ability_t(
                         abilitiesNames[i],
-                        dto.Stats[i],
-                        computeModificator(dto.Stats[i]),
-                        dto.Proefficiencies[i]));
+                        dto.stats[i],
+                        computeModificator(dto.stats[i]),
+                        dto.proefficiencies[i]));
         }
 
         // update skills (i starts at 6 as we skip the saving throws)
@@ -87,10 +87,10 @@ export class Character_t {
             this.Skills.push(new Skill_t(
                         skillsNames[i][0],
                         skillsNames[i][1],
-                        dto.Proefficiencies[i],
-                        dto.Skills[i]));
+                        dto.proefficiencies[i],
+                        dto.skills[i]));
         }
 
-        this.Race = new Race_t(dto.RaceName);
+        this.Race = new Race_t(dto.raceName);
     }
 }
