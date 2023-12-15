@@ -75,47 +75,40 @@ export function Informations({ character, setCharacter }: InformationsType) {
             <h2>Character's Informations</h2>
 
             <form className="mt-3" onSubmit={(e) => submitInformations(e)}>
-                <TextForm desc="Name:" id="name" variable={character.name}
+                <TextForm desc="Name:" id="name" variable={character.Name}
                     setVariable={(value: string) => {
-                        let tmp: Character_t = { ...character };
-                        tmp.name = value;
-                        setCharacter(tmp);
+                        character.Name = value;
+                        setCharacter(character);
                     }} />
-                <NumberForm desc="Level:" id="level" maxValue={20} variable={character.level}
+                <NumberForm desc="Level:" id="level" maxValue={20} variable={character.Level}
                     setVariable={(value: number) => {
-                        let tmp: Character_t = { ...character };
-                        tmp.level = value;
-                        setCharacter(tmp);
+                        character.Level = value;
+                        setCharacter(character);
                     }} />
-                <NumberForm desc="HP:" id="hp" variable={character.hp}
+                <NumberForm desc="HP:" id="hp" variable={character.Hp}
                     setVariable={(value: number) => {
-                        let tmp: Character_t = { ...character };
-                        tmp.hp = value;
-                        setCharacter(tmp);
+                        character.Hp = value;
+                        setCharacter(character);
                     }} />
-                <NumberForm desc="HP max:" id="hpmax" variable={character.hpmax}
+                <NumberForm desc="HP max:" id="hpmax" variable={character.HpMax}
                     setVariable={(value: number) => {
-                        let tmp: Character_t = { ...character };
-                        tmp.hpmax = value;
-                        setCharacter(tmp);
+                        character.HpMax = value;
+                        setCharacter(character);
                     }} />
-                <NumberForm desc="Initiative:" id="initiative" maxValue={20} variable={character.initiative}
+                <NumberForm desc="Initiative:" id="initiative" maxValue={20} variable={character.Initiative}
                     setVariable={(value: number) => {
-                        let tmp: Character_t = { ...character };
-                        tmp.initiative = value;
-                        setCharacter(tmp);
+                        character.Initiative = value;
+                        setCharacter(character);
                     }} />
-                <NumberForm desc="Spell save DC:" id="spellSaveDC" maxValue={20} variable={character.spellSaveDC}
+                <NumberForm desc="Spell save DC:" id="spellSaveDC" maxValue={20} variable={character.SpellSaveDC}
                     setVariable={(value: number) => {
-                        let tmp: Character_t = { ...character };
-                        tmp.spellSaveDC = value;
-                        setCharacter(tmp);
+                        character.SpellSaveDC = value;
+                        setCharacter(character);
                     }} />
-                <NumberForm desc="Spell casting ability:" id="spellCastAbility" maxValue={20} variable={character.spellCastAbility}
+                <NumberForm desc="Spell casting ability:" id="spellCastAbility" maxValue={20} variable={character.SpellCastAbility}
                     setVariable={(value: number) => {
-                        let tmp: Character_t = { ...character };
-                        tmp.spellCastAbility = value;
-                        setCharacter(tmp);
+                        character.SpellCastAbility = value;
+                        setCharacter(character);
                     }} />
                 <div>
                     <button
