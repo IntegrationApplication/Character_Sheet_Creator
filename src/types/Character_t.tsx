@@ -6,11 +6,45 @@ import { Spell_t } from "./Spell_t";
 import { Class_t } from "./Class_t";
 import { CharacterDTO_t } from "./CharacterDTO_t";
 
+export const computeModificator = (value: number) => {
+    return Math.ceil((value - 10) / 2.0);
+}
+
+export const abilitiesNames: Array<string> = [
+    "Strength",
+    "Dexterity",
+    "Constitution",
+    "Intelligence",
+    "Wisdom",
+    "Charisma"
+];
+
+export const skillsNames: Array<[string, string]> = [
+    [ "Acrobatics", abilitiesNames[1] ],
+    [ "Animal_handling", abilitiesNames[4] ],
+    [ "Arcana", abilitiesNames[3] ],
+    [ "Athletics", abilitiesNames[0] ],
+    [ "Deception", abilitiesNames[5] ],
+    [ "History", abilitiesNames[3] ],
+    [ "Insight", abilitiesNames[4] ],
+    [ "Intimidation", abilitiesNames[5] ],
+    [ "Investigation", abilitiesNames[3] ],
+    [ "Medicine", abilitiesNames[4] ],
+    [ "Nature", abilitiesNames[3] ],
+    [ "Perception", abilitiesNames[4] ],
+    [ "Performance", abilitiesNames[5] ],
+    [ "Persuasion", abilitiesNames[5] ],
+    [ "Religion", abilitiesNames[3] ],
+    [ "Sleight_of_hand", abilitiesNames[1] ],
+    [ "Stealth", abilitiesNames[1] ],
+    [ "Survival", abilitiesNames[4] ],
+]
+
 export class Character_t {
     Id: number = 0;
     Name: string = "";
-    level: number = 1;
-    Class: Class_t;
+    Level: number = 1;
+    Class: Class_t = new Class_t("");
     Ac: number = 0;
     Hp: number = 0;
     HpMax: number = 0;
@@ -25,10 +59,10 @@ export class Character_t {
     Spell: Array<Spell_t> = [];
     Race: Race_t = { name: "", description: "" };
 
-    constructor(dto: CharacterDTO_t) {
+    fromDTO(this: Character_t, dto: CharacterDTO_t) {
         this.Id = dto.ID;
         this.Name = dto.Name;
-        this.level = dto.Level;
+        this.Level = dto.Level;
         this.Class = new Class_t(dto.ClassName);
         this.Ac = dto.Ac;
         this.Hp = dto.Hp;
@@ -39,12 +73,22 @@ export class Character_t {
         this.Initiative = dto.Initiative;
         this.ProefficiencyBunus = dto.ProefficiencyBonus;
 
+        // update stats
         for (let i = 0; i < 6; ++i) {
-            // TODO: update skills
+            this.Abilities.push(new Ability_t(
+                        abilitiesNames[i],
+                        dto.Stats[i],
+                        computeModificator(dto.Stats[i]),
+                        dto.Proefficiencies[i]));
         }
 
-        for (let i = 0; i < 6; ++i) {
-            // TODO: update abilities
+        // update skills (i starts at 6 as we skip the saving throws)
+        for (let i = 6; i < 24; ++i) {
+            this.Skills.push(new Skill_t(
+                        skillsNames[i][0],
+                        skillsNames[i][1],
+                        dto.Proefficiencies[i],
+                        dto.Skills[i]));
         }
 
         this.Race = new Race_t(dto.RaceName);
