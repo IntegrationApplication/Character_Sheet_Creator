@@ -34,9 +34,29 @@ function App() {
   let idGame = 1;
   let idPlayer = 1;
 
-  // TODO:
-  // - fetch the character from the backend (it's a CharacterDTO_t)
-  const [characterDTO, setCharacterDTO] = useState<CharacterDTO_t>(new CharacterDTO_t(idGame, idPlayer)); // TODO: add real idGame and idPlayer
+  const [characterDTO, setCharacterDTO] = useState<CharacterDTO_t>(new CharacterDTO_t());
+
+  // fetch the character from the backend (it's a CharacterDTO_t)
+  useEffect(() => {
+    // the type of the json object match CharacterDTO_t
+    fetch(`https://localhost:7145/Character/GetCharacter?idPlayer=${idGame}&idGame=${idPlayer}`, {
+            method: 'GET',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+        })
+        .then((data: any) => {
+            let jsonObject = data.json();
+            console.log("json object:");
+            console.log(jsonObject);
+            setCharacterDTO(jsonObject);
+            console.log("The characterDTO has been gotten from the api:");
+            console.log(characterDTO);
+        })
+        .catch((e: Error) => console.log(e.message));
+  });
+
   const [character, setCharacter] = useState<Character_t>(new Character_t());
   // character.fromDTO(characterDTO);
 
@@ -152,7 +172,7 @@ function App() {
           console.log(characterDTO);
 
           // TODO FETCH HERE
-          fetch(`https://localhost:7145/Character/CreateCharacter?idPlayer=${channelId}&idGame=${PlayerID}`,
+          fetch(`https://localhost:7145/Character/UpdateCharacter?idPlayer=${channelId}&idGame=${PlayerID}`,
             {
               method: 'PUT', // TODO: change this to put
               headers: {
