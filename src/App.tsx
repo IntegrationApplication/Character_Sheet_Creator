@@ -39,13 +39,7 @@ function App() {
   // fetch the character from the backend (it's a CharacterDTO_t)
   useEffect(() => {
     // the type of the json object match CharacterDTO_t
-    fetch(`https://localhost:7145/Character/GetCharacter?idPlayer=${idGame}&idGame=${idPlayer}`, {
-            method: 'GET',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-            },
-        })
+    fetch(`https://localhost:7145/Character/GetCharacter?idPlayer=${idGame}&idGame=${idPlayer}`)
         .then((data: any) => {
             let jsonObject = data.json();
             console.log("json object:");
