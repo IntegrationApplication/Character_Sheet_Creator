@@ -15,10 +15,10 @@ interface TextFormType {
 }
 const TextForm: React.FC<TextFormType> = ({ desc, id, variable, setVariable }) => {
     return (
-        <label className="row mt-3" htmlFor="name">
+        <label className="row mt-3">
             <div className="col">{desc}</div>
             <input className="col" type="string" id={id} value={variable}
-                onChange={(e) => setVariable(e.target.value)}
+                onChange={ (e) => { setVariable(e.target.value); } }
                 required>
             </input>
         </label>
@@ -34,7 +34,7 @@ interface NumberFormType {
 }
 const NumberForm: React.FC<NumberFormType> = ({ desc, id, maxValue, variable, setVariable }) => {
     return (
-        <label className="row mt-3" htmlFor="name">
+        <label className="row mt-3">
             <div className="col">{desc}</div>
             <input className="col" type="number" id={id} value={variable}
                 onChange={(e) => {
@@ -63,62 +63,62 @@ interface InformationsType {
 export function Informations({ character, setCharacter }: InformationsType) {
     const errMsg: string = ""; // pour les erreurs sur le submit ?
 
-    const submitInformations = (e: any) => {
-        e.preventDefault();
-        // console.log(character.name);
-        // TODO
-    }
+    // state variables
+    const [name, setName] = useState(character.Name);
+    const [level, setLevel] = useState(character.Level);
+    const [hp, setHp] = useState(character.Hp);
+    const [hpMax, setHpMax] = useState(character.HpMax);
+    const [initiative, setInitiative] = useState(character.Initiative);
+    const [spellSaveDC, setSpellSaveDC] = useState(character.SpellSaveDC);
+    const [spellCastAbility, setSpellCastAbility] = useState(character.SpellCastAbility);
 
     // NOTE: je sais pas si le form sert à qqch ici
     return (
         <div>
             <h2>Character's Informations</h2>
 
-            <form className="mt-3" onSubmit={(e) => submitInformations(e)}>
-                <TextForm desc="Name:" id="name" variable={character.Name}
-                    setVariable={(value: string) => {
-                        character.Name = value;
-                        setCharacter(character);
-                    }} />
-                <NumberForm desc="Level:" id="level" maxValue={20} variable={character.Level}
-                    setVariable={(value: number) => {
-                        character.Level = value;
-                        setCharacter(character);
-                    }} />
-                <NumberForm desc="HP:" id="hp" variable={character.Hp}
-                    setVariable={(value: number) => {
-                        character.Hp = value;
-                        setCharacter(character);
-                    }} />
-                <NumberForm desc="HP max:" id="hpmax" variable={character.HpMax}
-                    setVariable={(value: number) => {
-                        character.HpMax = value;
-                        setCharacter(character);
-                    }} />
-                <NumberForm desc="Initiative:" id="initiative" maxValue={20} variable={character.Initiative}
-                    setVariable={(value: number) => {
-                        character.Initiative = value;
-                        setCharacter(character);
-                    }} />
-                <NumberForm desc="Spell save DC:" id="spellSaveDC" maxValue={20} variable={character.SpellSaveDC}
-                    setVariable={(value: number) => {
-                        character.SpellSaveDC = value;
-                        setCharacter(character);
-                    }} />
-                <NumberForm desc="Spell casting ability:" id="spellCastAbility" maxValue={20} variable={character.SpellCastAbility}
-                    setVariable={(value: number) => {
-                        character.SpellCastAbility = value;
-                        setCharacter(character);
-                    }} />
-                <div>
-                    <button
-                        type="submit" className="btn btn-primary mt-3"
-                        onSubmit={submitInformations}>TODO: remove this button
-                        and make a global form
-                    </button>
-                </div>
-                <div className="warning">{errMsg}</div>
-            </form>
+            <TextForm desc="Name:" id="name" variable={name}
+                setVariable={(value: string) => {
+                    setName(value);
+                    character.Name = value;
+                    // setCharacter(character);
+                }} />
+            <NumberForm desc="Level:" id="level" maxValue={20} variable={level}
+                setVariable={(value: number) => {
+                    setLevel(value);
+                    character.Level = value;
+                    // setCharacter(character);
+                }} />
+            <NumberForm desc="HP:" id="hp" variable={hp}
+                setVariable={(value: number) => {
+                    setHp(value);
+                    character.Hp = value;
+                    // setCharacter(character);
+                }} />
+            <NumberForm desc="HP max:" id="hpmax" variable={hpMax}
+                setVariable={(value: number) => {
+                    setHpMax(value);
+                    character.HpMax = value;
+                    // setCharacter(character);
+                }} />
+            <NumberForm desc="Initiative:" id="initiative" maxValue={20} variable={initiative}
+                setVariable={(value: number) => {
+                    setInitiative(value);
+                    character.Initiative = value;
+                    // setCharacter(character);
+                }} />
+            <NumberForm desc="Spell save DC:" id="spellSaveDC" maxValue={20} variable={spellSaveDC}
+                setVariable={(value: number) => {
+                    setSpellSaveDC(value);
+                    character.SpellSaveDC = value;
+                    // setCharacter(character);
+                }} />
+            <NumberForm desc="Spell casting ability:" id="spellCastAbility" maxValue={20} variable={spellCastAbility}
+                setVariable={(value: number) => {
+                    setSpellCastAbility(value);
+                    character.SpellCastAbility = value;
+                    // setCharacter(character);
+                }} />
         </div>
     );
 }
