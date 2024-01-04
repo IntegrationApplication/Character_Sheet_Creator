@@ -1,9 +1,9 @@
 export class Attack_t {
     id: number = 0;
-    linkedAbility: string = ""; // remplace with ability ?
-    damageType: string = "";
-    nbDices: number = 0;
-    dicesFaces: number = 0;
+    linkedAbility: string = "Strength";
+    damageType: string = "slash";
+    nbDices: number = 1;
+    dicesFaces: number = 6;
     damageBonus: number = 0;
 
     constructor(linkedAbility: string, damageType: string, damageDice: [ number, number, number]) {

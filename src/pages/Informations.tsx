@@ -61,8 +61,6 @@ interface InformationsType {
     setCharacter: React.Dispatch<React.SetStateAction<Character_t>>;
 }
 export function Informations({ character, setCharacter }: InformationsType) {
-    const errMsg: string = ""; // pour les erreurs sur le submit ?
-
     // state variables
     const [name, setName] = useState(character.Name);
     const [level, setLevel] = useState(character.Level);
@@ -72,7 +70,6 @@ export function Informations({ character, setCharacter }: InformationsType) {
     const [spellSaveDC, setSpellSaveDC] = useState(character.SpellSaveDC);
     const [spellCastAbility, setSpellCastAbility] = useState(character.SpellCastAbility);
 
-    // NOTE: je sais pas si le form sert à qqch ici
     return (
         <div>
             <h2>Character's Informations</h2>
