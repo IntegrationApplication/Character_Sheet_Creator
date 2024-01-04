@@ -53,10 +53,9 @@ function App() {
   let idPlayer = 1;
 
   // fetch the character from the backend (it's a CharacterDTO_t)
-  let tmpCharacterDTO = new CharacterDTO_t();
   useEffect(() => {
-          tmpCharacterDTO = fetchCharacterDto(idGame, idPlayer);
-          // character.fromDTO(tmpCharacterDTO);
+          let tmpCharacterDTO : CharacterDTO_t = fetchCharacterDto(idGame, idPlayer);
+          character.fromDTO(tmpCharacterDTO);
           }, []);
 
   // List of data
@@ -72,11 +71,12 @@ function App() {
   const [classInfo, set_classInfo] = useState<Class_t>({ name: "name", description: "description" })
   const [character, setCharacter] = useState<Character_t>(new Character_t());
 
-  // update the character when the variables are changed
-  useEffect(() => { character.Abilities = abilities; } , [abilities]);
-  useEffect(() => { character.Skills = skills; } , [skills]);
-  useEffect(() => { character.Race = new Race_t(raceSelected); } , [raceSelected]);
-  useEffect(() => { character.Class = new Class_t(classSelected); } , [classSelected]);
+  const updateCharacter = () => {
+      character.Abilities = abilities;
+      character.Skills = skills;
+      character.Race = new Race_t(raceSelected);
+      character.Class = new Class_t(classSelected);
+  };
 
   // Initialize all the data from the dnd5e api
   useEffect(() => {
@@ -173,7 +173,6 @@ function App() {
         <MenuDisplay />
         <div className='d-flex row w-75 ms-5'>
           {menu_index === 0 && <Race raceInfo={raceInfo} set_raceInfo={set_raceInfo} set_raceSelected={set_raceSelected} raceSelected='' races={races} />}
-          {menu_index === 1 && <Class classes={classes} classInfo={classInfo} classSelected={classSelected} set_ClassSelected={set_ClassSelected} set_classInfo={set_classInfo} set_classes={set_classes} />}
           {menu_index === 1 && <Class classes={classes} classInfo={classInfo} set_ClassSelected={set_ClassSelected} />}
           {menu_index === 2 && <Stat abilities={abilities} set_abilities={set_abilities} skills={skills} set_skills={set_skills} />}
           {menu_index === 4 && <Informations character={character} setCharacter={setCharacter}/>}
@@ -182,6 +181,7 @@ function App() {
       </div>
       <button onClick={
         () => {
+          updateCharacter(); // update the class, ...
           let characterDTO = new CharacterDTO_t();
           console.log("dto before change:");
           console.log(characterDTO);
