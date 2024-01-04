@@ -53,10 +53,11 @@ function App() {
   let idPlayer = 1;
 
   // fetch the character from the backend (it's a CharacterDTO_t)
+  const [character, setCharacter] = useState<Character_t>(new Character_t());
   useEffect(() => {
-          let tmpCharacterDTO : CharacterDTO_t = fetchCharacterDto(idGame, idPlayer);
-          character.fromDTO(tmpCharacterDTO);
-          }, []);
+      let tmpCharacterDTO : CharacterDTO_t = fetchCharacterDto(idGame, idPlayer);
+      character.fromDTO(tmpCharacterDTO);
+  }, []);
 
   // List of data
   const [abilities, set_abilities] = useState<Ability_t[]>([]);
@@ -69,7 +70,6 @@ function App() {
   const [classes, set_classes] = useState<string[]>([]);
   const [classSelected, set_ClassSelected] = useState<string>("");
   const [classInfo, set_classInfo] = useState<Class_t>({ name: "name", description: "description" })
-  const [character, setCharacter] = useState<Character_t>(new Character_t());
 
   const updateCharacter = () => {
       character.Abilities = abilities;
