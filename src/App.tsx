@@ -4,6 +4,7 @@ import "./extend.css"
 import React, { useState, useEffect } from 'react';
 import { Stat } from './pages/Stats';
 import { Race } from './pages/Races';
+import { Attacks } from './pages/Attacks';
 import { Informations } from './pages/Informations';
 import { Class } from './pages/Classes';
 import { Character_t } from './types/Character_t';
@@ -221,6 +222,7 @@ function App() {
           {menu_index === 0 && <Race raceInfo={raceInfo} set_raceSelected={set_raceSelected} races={races} />}
           {menu_index === 1 && <Class classes={classes} classInfo={classInfo} set_ClassSelected={set_ClassSelected} />}
           {menu_index === 2 && <Stat abilities={abilities} set_abilities={set_abilities} skills={skills} set_skills={set_skills} />}
+          {menu_index === 3 && <Attacks character={character} setCharacter={setCharacter}/>}
           {menu_index === 4 && <Informations character={character} setCharacter={setCharacter}/>}
         </div>
 
