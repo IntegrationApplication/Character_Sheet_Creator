@@ -69,7 +69,7 @@ export class Character_t {
         this.HpMax = dto.hpMax;
         this.hitdice = [ dto.hitDiceNumber, dto.hitDiceValue ];
         this.SpellSaveDC = dto.spellSaveDC;
-        this.SpellCastAbility = dto.speelCastAbility;
+        this.SpellCastAbility = dto.spellCastAbility;
         this.Initiative = dto.initiative;
         this.ProefficiencyBunus = dto.proefficiencyBonus;
 

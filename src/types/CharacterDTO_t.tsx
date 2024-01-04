@@ -12,7 +12,7 @@ export class CharacterDTO_t {
     level: number = 0;
     ac: number = 0;
     spellSaveDC: number = 0;
-    speelCastAbility: number = 0;
+    spellCastAbility: number = 0;
     initiative: number = 0;
     hp: number = 0;
     hpMax: number = 0;
@@ -33,7 +33,7 @@ export class CharacterDTO_t {
         this.level = character.Level;
         this.ac = character.Ac;
         this.spellSaveDC = character.SpellSaveDC;
-        this.speelCastAbility = character.SpellCastAbility;
+        this.spellCastAbility = character.SpellCastAbility;
         this.initiative = character.Initiative;
         this.hp = character.Hp;
         this.hpMax = character.HpMax;
