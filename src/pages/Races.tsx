@@ -5,7 +5,7 @@ export function Race({ races, raceSelected, set_raceSelected, raceInfo, set_race
 
   // Function to display all the races
   const MenuDisplay = () => <div className='d-flex row w-25'>
-    {races.map((name, index) => <button className='btn btn-primary mx-auto my-2' onClick={
+    {races.map((name, index) => <button className='btn btn-primary mx-auto my-2' key={`raceBtn${index}`} onClick={
       () => {
         set_raceSelected(name)
       }
