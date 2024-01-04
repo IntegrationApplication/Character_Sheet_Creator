@@ -85,8 +85,8 @@ export class Character_t {
         // update skills (i starts at 6 as we skip the saving throws)
         for (let i = 6; i < 24; ++i) {
             this.Skills.push(new Skill_t(
-                        skillsNames[i][0],
-                        skillsNames[i][1],
+                        skillsNames[i - 6][0],
+                        skillsNames[i - 6][1],
                         dto.proefficiencies[i],
                         dto.skills[i]));
         }
