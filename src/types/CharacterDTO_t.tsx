@@ -51,6 +51,6 @@ export class CharacterDTO_t {
         this.proefficiencyBonus = character.ProefficiencyBunus;
         // Peut être enlever ça dans le back, je sais pas si c'est vraiement
         // utile, ça sert à rien
-        this.passivePerception = 10 + character.Abilities[5].value;
+        // this.passivePerception = 10 + character.Abilities[5].value;
     }
 }
