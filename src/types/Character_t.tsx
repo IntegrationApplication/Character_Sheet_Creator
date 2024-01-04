@@ -10,6 +10,10 @@ export const computeModificator = (value: number) => {
     return Math.ceil((value - 10) / 2.0);
 }
 
+/******************************************************************************/
+/* variables                                                                  */
+/******************************************************************************/
+
 export const abilitiesNames: Array<string> = [
     "Strength",
     "Dexterity",
@@ -39,6 +43,10 @@ export const skillsNames: Array<[string, string]> = [
     [ "Stealth", abilitiesNames[1] ],
     [ "Survival", abilitiesNames[4] ],
 ]
+
+/******************************************************************************/
+/* Character_t                                                                */
+/******************************************************************************/
 
 export class Character_t {
     Id: number = 0;
