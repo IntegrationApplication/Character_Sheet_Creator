@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Class_t } from '../types/Class_t';
 
 interface ClassType {
