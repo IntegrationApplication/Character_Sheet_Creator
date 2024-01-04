@@ -23,21 +23,17 @@ const Menu = ["Race", "Class", "Stats", "Attacks", "Infos"]
 /* Functions                                                                  */
 /******************************************************************************/
 
-const fetchCharacterDto = (idGame: number, idPlayer: number) => {
-  let characterDTO = new CharacterDTO_t();
-
+const fetchCharacterDto = async (idGame: number, idPlayer: number): Promise<CharacterDTO_t> => {
   // the type of the json object match CharacterDTO_t
-  fetch(`https://localhost:7145/Character/GetCharacter?idPlayer=${idGame}&idGame=${idPlayer}`)
+  return fetch(`https://localhost:7145/Character/GetCharacter?idPlayer=${idGame}&idGame=${idPlayer}`)
       .then((data: any) => {
+              let characterDTO = new CharacterDTO_t();
               let jsonObject = data.json();
-              console.log("json object:");
-              console.log(jsonObject);
               characterDTO = jsonObject;
               console.log("The characterDTO has been gotten from the api:");
               console.log(characterDTO);
-              })
-  .catch((e: Error) => console.log(e.message));
-  return characterDTO;
+              return characterDTO;
+              });
 }
 
 /******************************************************************************/
@@ -55,8 +51,11 @@ function App() {
   // fetch the character from the backend (it's a CharacterDTO_t)
   const [character, setCharacter] = useState<Character_t>(new Character_t());
   useEffect(() => {
-      let tmpCharacterDTO : CharacterDTO_t = fetchCharacterDto(idGame, idPlayer);
-      character.fromDTO(tmpCharacterDTO);
+      fetchCharacterDto(idGame, idPlayer)
+          .then(characterDTO => {
+              character.fromDTO(characterDTO);
+          })
+          .catch(error => console.log(error) );
   }, []);
 
   // List of data
