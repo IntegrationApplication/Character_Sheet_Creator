@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Class_t } from '../types/Class_t';
 
-export function Class({ set_ClassSelected, set_classes, set_classInfo, classSelected, classInfo, classes }: { classInfo: Class_t, classSelected: string, set_ClassSelected: any, set_classes: any, set_classInfo: any, classes: string[] }) {
+interface ClassType {
+    classInfo: Class_t;
+    classSelected: string;
+    set_ClassSelected: any;
+    set_classes: any;
+    set_classInfo: any;
+    classes: string[];
+}
+export function Class({ set_ClassSelected, set_classes, set_classInfo, classSelected, classInfo, classes }: ClassType) {
 
   // Function to display all the classes
   const MenuDisplay = () => <div className='d-flex row w-25'>
