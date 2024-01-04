@@ -65,12 +65,13 @@ function App() {
   const [savings, set_savings] = useState<Skill_t[]>([]);
   const [races, set_races] = useState<string[]>([]);
   // TODO: set default values:
-  const [raceSelected, set_raceSelected] = useState<string>("");
-  const [raceInfo, set_raceInfo] = useState<Race_t>({ name: "name", description: "description" })
+  const [raceSelected, set_raceSelected] = useState<string>(character.Race.name);
+  const [raceInfo, set_raceInfo] = useState<Race_t>(character.Race);
   const [classes, set_classes] = useState<string[]>([]);
-  const [classSelected, set_ClassSelected] = useState<string>("");
-  const [classInfo, set_classInfo] = useState<Class_t>({ name: "name", description: "description" })
+  const [classSelected, set_ClassSelected] = useState<string>(character.Class.name);
+  const [classInfo, set_classInfo] = useState<Class_t>(character.Class);
 
+  // helper function used before sending the character to the backend
   const updateCharacter = () => {
       character.Abilities = abilities;
       character.Skills = skills;
