@@ -174,6 +174,7 @@ function App() {
         <div className='d-flex row w-75 ms-5'>
           {menu_index === 0 && <Race raceInfo={raceInfo} set_raceInfo={set_raceInfo} set_raceSelected={set_raceSelected} raceSelected='' races={races} />}
           {menu_index === 1 && <Class classes={classes} classInfo={classInfo} classSelected={classSelected} set_ClassSelected={set_ClassSelected} set_classInfo={set_classInfo} set_classes={set_classes} />}
+          {menu_index === 1 && <Class classes={classes} classInfo={classInfo} set_ClassSelected={set_ClassSelected} />}
           {menu_index === 2 && <Stat abilities={abilities} set_abilities={set_abilities} skills={skills} set_skills={set_skills} />}
           {menu_index === 4 && <Informations character={character} setCharacter={setCharacter}/>}
         </div>

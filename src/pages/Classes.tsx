@@ -3,17 +3,14 @@ import { Class_t } from '../types/Class_t';
 
 interface ClassType {
     classInfo: Class_t;
-    classSelected: string;
-    set_ClassSelected: any;
-    set_classes: any;
-    set_classInfo: any;
+    set_ClassSelected: (value: string) => void;
     classes: string[];
 }
-export function Class({ set_ClassSelected, set_classes, set_classInfo, classSelected, classInfo, classes }: ClassType) {
+export function Class({ set_ClassSelected, classInfo, classes }: ClassType) {
 
   // Function to display all the classes
   const MenuDisplay = () => <div className='d-flex row w-25'>
-    {classes.map((name, index) => <button className='btn btn-primary mx-auto my-2' onClick={
+    {classes.map((name, index) => <button className='btn btn-primary mx-auto my-2' id={`classBnt${index}`} onClick={
       () => { set_ClassSelected(name) }
     }>{name}</button>)}
   </div>
