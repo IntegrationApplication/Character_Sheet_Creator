@@ -85,7 +85,7 @@ export function Attacks({ character, setCharacter }: AttacksType) {
                     character.Attacks.map(elt => {
                         idx++;
                         return (
-                            <AttackForm index={idx} character={character} />
+                            <AttackForm index={idx} key={`attackForm${idx}`} character={character} />
                         );
                     })
                 }

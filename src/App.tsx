@@ -207,11 +207,15 @@ function App() {
   useEffect(() => updateClassInfo(set_classInfo, classSelected), [classSelected])
 
   // Function to represent the menu
-  const MenuDisplay = () => <div className='d-flex row'>
-    {Menu.map((el, index) => <button className='btn btn-primary m-auto' key={"menuBtn"+index} onClick={
-      () => { set_menu_index(index) }
-    }>{el}</button>)}
-  </div>
+  const MenuDisplay = () => {
+      return (
+          <div className='d-flex row'> {
+                  Menu.map((el, index) =>
+                          <button className='btn btn-primary m-auto' key={`menuBtnLink${index}`}
+                                  onClick={ () => { set_menu_index(index) } }>{el}</button>)
+              }
+          </div>);
+  }
 
   // React Element to display
   return (
