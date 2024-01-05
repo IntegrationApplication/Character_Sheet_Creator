@@ -8,13 +8,13 @@ interface AttackFormType {
     character: Character_t;
 }
 const AttackForm: React.FC<AttackFormType> = ({ index, character }) => {
-    const [name, setName] = useState<string>("name");
-    const [linkedAbility, setLinkedAbility] = useState<string>("Strength");
-    const [damageType, setDamageType] = useState<string>("slash");
-    const [nbDices, setNbDices] = useState<number>(1);
-    const [dicesFaces, setDicesFaces] = useState<number>(6);
+    const [name, setName] = useState<string>(character.Attacks[index].name);
+    const [linkedAbility, setLinkedAbility] = useState<string>(character.Attacks[index].linkedAbility);
+    const [damageType, setDamageType] = useState<string>(character.Attacks[index].damageType);
+    const [nbDices, setNbDices] = useState<number>(character.Attacks[index].nbDices);
+    const [dicesFaces, setDicesFaces] = useState<number>(character.Attacks[index].dicesFaces);
     // note: we could compute the damage bonus automatically
-    const [damageBonus, setDamageBonus] = useState<number>(0);
+    const [damageBonus, setDamageBonus] = useState<number>(character.Attacks[index].damageBonus);
 
     // note: la combobox est buguée
     return (
