@@ -8,6 +8,7 @@ interface AttackFormType {
     character: Character_t;
 }
 const AttackForm: React.FC<AttackFormType> = ({ index, character }) => {
+    const [name, setName] = useState<string>("name");
     const [linkedAbility, setLinkedAbility] = useState<string>("Strength");
     const [damageType, setDamageType] = useState<string>("slash");
     const [nbDices, setNbDices] = useState<number>(1);
@@ -17,7 +18,14 @@ const AttackForm: React.FC<AttackFormType> = ({ index, character }) => {
 
     // note: la combobox est buguée
     return (
-        <div className="row mt-3" id="linkedAbility" key={`attack${index}`}>
+        <div className="row mt-3" key={`attack${index}`}>
+            <input className="col" type="string" key="name" value={name}
+                onChange={(e) => {
+                    setName(e.target.value);
+                    character.Attacks[index].name = e.target.value;
+                }}
+                required>
+            </input>
             <Combobox
                 key="linkedAbility"
                 data={abilitiesNames}

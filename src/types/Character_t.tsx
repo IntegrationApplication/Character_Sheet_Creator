@@ -4,7 +4,7 @@ import { Race_t } from "./Race_t";
 import { Skill_t } from "./Skill_t";
 import { Spell_t } from "./Spell_t";
 import { Class_t } from "./Class_t";
-import { CharacterDTO_t } from "./CharacterDTO_t";
+import { CharacterDTO_t } from "./DTO/CharacterDTO_t";
 
 export const computeModificator = (value: number) => {
     return Math.ceil((value - 10) / 2.0);
@@ -80,6 +80,14 @@ export class Character_t {
         this.SpellCastAbility = dto.spellCastAbility;
         this.Initiative = dto.initiative;
         this.ProefficiencyBunus = dto.proefficiencyBonus;
+
+        // update attacks
+        this.Attacks = [];
+        dto.attacks.forEach(attack => {
+            let newAttack = new Attack_t("Strength", "slash", [ 1, 6, 0]);
+            newAttack.fromDTO(attack);
+            this.Attacks.push(newAttack);
+        })
 
         // update stats
         for (let i = 0; i < 6; ++i) {

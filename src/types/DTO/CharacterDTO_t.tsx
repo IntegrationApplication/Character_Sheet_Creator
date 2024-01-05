@@ -1,6 +1,7 @@
-import { Ability_t } from "./Ability_t";
-import { Attack_t } from "./Attack_t";
-import { Character_t } from "./Character_t";
+import { Ability_t } from "../Ability_t";
+import { Attack_t } from "../Attack_t";
+import { Character_t } from "../Character_t";
+import { AttackDTO_t } from "./AttackDTO_t";
 
 export class CharacterDTO_t {
     id: number = 0;
@@ -21,7 +22,7 @@ export class CharacterDTO_t {
     stats: Array<number> = [];
     skills: Array<number> = [];
     proefficiencies: Array<boolean> = [];
-    attacks: Array<Attack_t> = [];
+    attacks: Array<AttackDTO_t> = [];
     proefficiencyBonus: number = 0;
     passivePerception: number = 0;
 
@@ -47,7 +48,8 @@ export class CharacterDTO_t {
             this.skills.push(skill.coeff);
             this.proefficiencies.push(skill.proefficient);
         });
-        this.attacks = character.Attacks;
+        character.Attacks.forEach(attack => this.attacks.push(new
+                    AttackDTO_t(attack)));
         this.proefficiencyBonus = character.ProefficiencyBunus;
         // Peut être enlever ça dans le back, je sais pas si c'est vraiement
         // utile, ça sert à rien

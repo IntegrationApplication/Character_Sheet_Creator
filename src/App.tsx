@@ -12,7 +12,7 @@ import { Ability_t } from './types/Ability_t';
 import { Skill_t } from './types/Skill_t';
 import { Race_t } from './types/Race_t';
 import { Class_t } from './types/Class_t';
-import { CharacterDTO_t } from './types/CharacterDTO_t';
+import { CharacterDTO_t } from './types/DTO/CharacterDTO_t';
 
 /******************************************************************************/
 /* Variables                                                                  */
