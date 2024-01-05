@@ -236,6 +236,8 @@ function App() {
           updateCharacter(); // update the class, ...
           let characterDTO = new CharacterDTO_t();
           characterDTO.fromCharacter(character);
+          characterDTO.idGame = idGame;
+          characterDTO.idPlayer = idPlayer;
           console.log("send this dto to db:");
           console.log(characterDTO);
 
