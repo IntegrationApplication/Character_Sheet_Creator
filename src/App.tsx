@@ -231,11 +231,7 @@ function App() {
         () => {
           updateCharacter(); // update the class, ...
           let characterDTO = new CharacterDTO_t();
-          console.log("dto before change:");
-          console.log(characterDTO);
-          characterDTO.fromCharacter(character);
-          console.log("-----------------------------------------");
-          console.log("dto after change:");
+          console.log("send this dto to db:");
           console.log(characterDTO);
 
           saveCharacter(idGame, idPlayer, characterDTO);
