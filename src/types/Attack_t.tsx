@@ -10,14 +10,6 @@ export class Attack_t {
     dicesFaces: number = 6;
     damageBonus: number = 0;
 
-    constructor(linkedAbility: string, damageType: string, damageDice: [ number, number, number]) {
-        this.linkedAbility = linkedAbility;
-        this.damageType  = damageType;
-        this.nbDices = damageDice[0];
-        this.dicesFaces = damageDice[1];
-        this.damageBonus = damageDice[2];
-    }
-
     fromDTO(dto: AttackDTO_t) {
         this.name = dto.name;
         this.linkedAbility = abilitiesNames[dto.linkedAbility];

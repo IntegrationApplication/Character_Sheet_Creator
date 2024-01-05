@@ -101,7 +101,7 @@ export function Attacks({ character, setCharacter }: AttacksType) {
             <AttacksDisplay />
 
             <button onClick={() => {
-                let attack = new Attack_t("Strength", "slash", [ 1, 6, 0]);
+                let attack = new Attack_t();
                 character.Attacks.push(attack);
                 setNbAttacks(nbAttacks + 1);
             }}>new weapon</button>

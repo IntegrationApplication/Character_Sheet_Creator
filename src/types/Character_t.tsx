@@ -84,7 +84,7 @@ export class Character_t {
         // update attacks
         this.Attacks = [];
         dto.attacks.forEach(attack => {
-            let newAttack = new Attack_t("Strength", "slash", [ 1, 6, 0]);
+            let newAttack = new Attack_t();
             newAttack.fromDTO(attack);
             this.Attacks.push(newAttack);
         })
