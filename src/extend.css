@@ -1,6 +1,12 @@
-.bg-black {
-    background-color: #444 !important;
-    border-radius: 20%;
+.bg-black
+{
+  background-color: #333 !important;
+}
+
+.brd-white
+{
+  border: solid;
+  border-color: #dfdfdf;
 }
 
 .white {

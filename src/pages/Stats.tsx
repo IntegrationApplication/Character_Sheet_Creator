@@ -7,7 +7,7 @@ import cloneDeep from 'lodash/fp/cloneDeep'
 
 
 
-export function Stat({ abilities, set_abilities, skills, set_skills }: { abilities: Ability_t[], set_abilities: any, skills: Skill_t[], set_skills: any }) {
+export function Stat({ abilities, set_abilities, skills, set_skills, savings, set_savings }: { abilities: Ability_t[], set_abilities: any, skills: Skill_t[], set_skills: any, savings:Skill_t[],set_savings:any }) {
 
     // Function to display one ability
     const AbilityDisplay = ({ ability }: { ability: Ability_t }) =>
@@ -28,17 +28,20 @@ export function Stat({ abilities, set_abilities, skills, set_skills }: { abiliti
         </div>
 
     // Function to display one skill
-    const SkillDisplay = ({ skill }: { skill: Skill_t }) =>
+    const SkillDisplay = ({ skill,setter }: { skill: Skill_t, setter:any }) =>
         <div className='d-flex my-1 text-start'>
             <input className='me-2' type='checkbox' name={'proef_' + skill.name} checked={skill.proefficient}
                 onChange={() =>
-                    set_skills((skills: Skill_t[]) => {
+                    {
+                    setter((skills: Skill_t[]) => {
                         let temp: Skill_t[] = cloneDeep(skills);
                         let skillToModify: Skill_t = temp.find((el) => el.name === skill.name)!
                         skillToModify.proefficient = !skillToModify.proefficient;
                         skillToModify.coeff += skillToModify.proefficient ? 2 : -2;
                         return temp;
-                    })}
+                    })
+                }
+            }
             />
             {skill.name} ({skill.ability})
             <div className='px-2 ms-2 bg-black white'>{skill.coeff} </div>
@@ -56,8 +59,16 @@ export function Stat({ abilities, set_abilities, skills, set_skills }: { abiliti
             })
             return temp
         })
+        set_savings((skills: Skill_t[]) => {
+            let temp: Skill_t[] = cloneDeep(skills);
+            temp.forEach((skill: Skill_t) => {
+                const ability = abilities.find((ability) => skill.ability === ability.type)
+                skill.coeff = ability ? ability.modificator : 0;
+                skill.coeff += skill.proefficient ? 2 : 0;
+            })
+            return temp
+        })
     }, [abilities])
-
 
     // React Element to render
     return (
@@ -67,7 +78,8 @@ export function Stat({ abilities, set_abilities, skills, set_skills }: { abiliti
                     {abilities.map((ability) => <AbilityDisplay ability={ability} key={ability.type} />)}
                 </div>
                 <div className='d-flex row'>
-                    {skills.map((skill: Skill_t) => <SkillDisplay skill={skill} key={skill.name} />)}
+                    {skills.map((skill: Skill_t) => <SkillDisplay skill={skill} setter={set_skills} key={skill.name} />)}
+                    {savings.map((skill: Skill_t) => <SkillDisplay skill={skill} setter={set_savings} key={skill.name} />)}
                 </div>
             </div>
         </div>

@@ -30,7 +30,7 @@ const AttackForm: React.FC<AttackFormType> = ({ index, character }) => {
                 key="linkedAbility"
                 data={abilitiesNames}
                 value={linkedAbility}
-                onChange={ value => {
+                onChange={ (value:any) => {
                     setLinkedAbility(value);
                     character.Attacks[index].linkedAbility = value;
                 }} />

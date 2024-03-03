@@ -52,7 +52,7 @@ export class Character_t {
     Id: number = 0;
     Name: string = "";
     Level: number = 1;
-    Class: Class_t = new Class_t("");
+    Class: Class_t = new Class_t("",0,[],[]);
     Ac: number = 0;
     Hp: number = 0;
     HpMax: number = 0;
@@ -65,13 +65,13 @@ export class Character_t {
     Abilities: Array<Ability_t> = [];
     Attacks: Array<Attack_t> = [];
     Spell: Array<Spell_t> = [];
-    Race: Race_t = { name: "", description: "" };
+    Race: Race_t = new Race_t("","","",[],"","",0);
 
     fromDTO(this: Character_t, dto: CharacterDTO_t) {
         this.Id = dto.id;
         this.Name = dto.name;
         this.Level = dto.level;
-        this.Class = new Class_t(dto.className);
+        this.Class = new Class_t("",0,[],[]);
         this.Ac = dto.ac;
         this.Hp = dto.hp;
         this.HpMax = dto.hpMax;
@@ -107,6 +107,6 @@ export class Character_t {
                         dto.skills[i]));
         }
 
-        this.Race = new Race_t(dto.raceName);
+        this.Race = new Race_t(dto.raceName,"","",[],"","",0);
     }
 }
