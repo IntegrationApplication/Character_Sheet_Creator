@@ -1,7 +1,8 @@
 import { abilitiesNames, Character_t } from "../types/Character_t";
 import { Attack_t } from "../types/Attack_t";
-import Combobox from "react-widgets/Combobox";
 import React, { useState } from 'react';
+import { DropdownList } from "react-widgets/cjs";
+import "react-widgets/styles.css";
 
 interface AttackFormType {
     index: number;
@@ -18,51 +19,69 @@ const AttackForm: React.FC<AttackFormType> = ({ index, character }) => {
 
     // note: la combobox est buguée
     return (
-        <div className="row mt-3" key={`attack${index}`}>
-            <input className="col" type="string" key="name" value={name}
-                onChange={(e) => {
-                    setName(e.target.value);
-                    character.Attacks[index].name = e.target.value;
-                }}
-                required>
-            </input>
-            <Combobox
-                key="linkedAbility"
-                data={abilitiesNames}
-                value={linkedAbility}
-                onChange={ (value:any) => {
-                    setLinkedAbility(value);
-                    character.Attacks[index].linkedAbility = value;
-                }} />
-            <input className="col" type="string" key="damageType" value={damageType}
-                onChange={(e) => {
-                    setDamageType(e.target.value);
-                    character.Attacks[index].damageType = e.target.value;
-                }}
-                required>
-            </input>
-            <input className="col" type="number" key="nbDices" value={nbDices}
-                onChange={(e) => {
-                    setNbDices(+e.target.value);
-                    character.Attacks[index].nbDices = +e.target.value;
-                }}
-                required>
-            </input>
-            <input className="col" type="number" key="dicesFaces" value={dicesFaces}
-                onChange={(e) => {
-                    setDicesFaces(+e.target.value);
-                    character.Attacks[index].dicesFaces = +e.target.value;
-                }}
-                required>
-            </input>
-            <input className="col" type="number" key="damageBonus" value={damageBonus}
-                onChange={(e) => {
-                    setDamageBonus(+e.target.value);
-                    character.Attacks[index].damageBonus = +e.target.value;
-                }}
-                required>
-            </input>
-        </div>
+        <>
+            <h3 className="mt-5">Weapon {index}:</h3>
+            <label className="row mt-3">
+                <div className="col">name:</div>
+                <input className="col" type="string" key="name" value={name}
+                    onChange={(e) => {
+                        setName(e.target.value);
+                        character.Attacks[index].name = e.target.value;
+                    }}
+                    required>
+                </input>
+            </label>
+            <label className="row mt-3">
+                <div className="col">stat name:</div>
+                <DropdownList
+                    data={abilitiesNames}
+                    value={linkedAbility}
+                    onChange={ (value:any) => {
+                        setLinkedAbility(value);
+                        character.Attacks[index].linkedAbility = value;
+                    }} />
+            </label>
+            <label className="row mt-3">
+                <div className="col">damage type:</div>
+                <input className="col" type="string" key="damageType" value={damageType}
+                    onChange={(e) => {
+                        setDamageType(e.target.value);
+                        character.Attacks[index].damageType = e.target.value;
+                    }}
+                    required>
+                </input>
+            </label>
+            <label className="row mt-3">
+                <div className="col">dice number:</div>
+                <input className="col" type="number" key="nbDices" value={nbDices}
+                    onChange={(e) => {
+                        setNbDices(+e.target.value);
+                        character.Attacks[index].nbDices = +e.target.value;
+                    }}
+                    required>
+                </input>
+            </label>
+            <label className="row mt-3">
+                <div className="col">dice faces:</div>
+                <input className="col" type="number" key="dicesFaces" value={dicesFaces}
+                    onChange={(e) => {
+                        setDicesFaces(+e.target.value);
+                        character.Attacks[index].dicesFaces = +e.target.value;
+                    }}
+                    required>
+                </input>
+            </label>
+            <label className="row mt-3">
+                <div className="col">bonus:</div>
+                <input className="col" type="number" key="damageBonus" value={damageBonus}
+                    onChange={(e) => {
+                        setDamageBonus(+e.target.value);
+                        character.Attacks[index].damageBonus = +e.target.value;
+                    }}
+                    required>
+                </input>
+            </label>
+        </>
     );
 }
 
@@ -95,7 +114,7 @@ export function Attacks({ character, setCharacter }: AttacksType) {
 
     // todo: create a table to describe each input
     return (
-        <>
+        <div>
             <h2>Character's Attacks</h2>
 
             <AttacksDisplay />
@@ -105,6 +124,6 @@ export function Attacks({ character, setCharacter }: AttacksType) {
                 character.Attacks.push(attack);
                 setNbAttacks(nbAttacks + 1);
             }}>new weapon</button>
-        </>
+        </div>
     );
 }
