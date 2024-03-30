@@ -8,25 +8,26 @@ interface ClassType {
 }
 
 const DisplayClass = ({classInfo} : {classInfo: Class_t}) =>
- <div className=' mx-5 w-100 d-flex align-items-center jusitfy-content-around'> 
- <img className='m-2' src={`/img/${classInfo.name}.png`}/>
- <div className="card bg-black white p-3 m-2 w-50">
-      <h2>{classInfo.name}</h2>     
-        <div className="text-start d-flex justify-content-between">
-        <div className='d-flex flex-column justify-content- gap-3'>
-        <p><strong>Hit Die:</strong>{classInfo.hit_die}</p>
-        <p><strong>Equipement:</strong>
-        {classInfo.equipement.map(el => <p>- {el}</p>)}
-        </p>
-        </div>
-        <div className='d-flex flex-column'>
-        <p><strong>Proficiencies:</strong>
-        {classInfo.proficiencies.map(el => <p>- {el}</p>)}
-        </p>
-        </div>
+    <div className=' mx-5 w-100 d-flex align-items-center jusitfy-content-around' key={classInfo.name}>
+        <img className='m-2' src={`/img/${classInfo.name}.png`}/>
+        <div className="card bg-black white p-3 m-2 w-50">
+            <h2>{classInfo.name}</h2>
+            <div className="text-start d-flex justify-content-between">
+                <div className='d-flex flex-column justify-content- gap-3'>
+                    <p><strong>Hit Die:</strong>{classInfo.hit_die}</p>
+                    <div><strong>Equipement:</strong>
+                        {classInfo.equipement.map((el, index) => <div key={index}>- {el}</div>)}
+                    </div>
+                    </div>
+                    <div className='d-flex flex-column'>
+                    <div>
+                        <strong>Proficiencies:</strong>
+                        {classInfo.proficiencies.map((el, index) => <div key={index}>- {el}</div>)}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
 export function Class({ set_ClassSelected, classInfo, classes }: ClassType) {
 

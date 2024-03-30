@@ -8,24 +8,27 @@ interface RaceType {
 }
 
 const DisplayRace = ({raceInfo} : {raceInfo: Race_t}) =>
- <div className=' mx-5 w-100 d-flex align-items-center jusitfy-content-around'> 
- <img className='m-2' src={`/img/${raceInfo.name}.png`}/>
- <div className="card bg-black white p-3 m-2 w-50">
-      <h2>{raceInfo.name}</h2>
+<div className=' mx-5 w-100 d-flex align-items-center jusitfy-content-around' key={raceInfo.name}>
+    <img className='m-2' src={`/img/${raceInfo.name}.png`}/>
+    <div className="card bg-black white p-3 m-2 w-50">
+        <h2>{raceInfo.name}</h2>
+
         <p><strong>Alignment:</strong> {raceInfo.alignment}</p>
         <p><strong>Languages:</strong> {raceInfo.language_desc}</p>
         <p><strong>Age:</strong> {raceInfo.age}</p>
 
         <div className="text-start container">
-        <div className='d-flex justify-content-between'>
-          <div className='d-flex flex-column'>
-            <p><strong>Size:</strong> {raceInfo.size}</p>
-            <p><strong>Speed:</strong> {raceInfo.speed} feet</p>
-          </div>
-        <p><strong>Ability Bonuses:</strong>
-        {raceInfo.ability_bonuses.map(el => <p>- {el}</p>)}</p>
+            <div className='d-flex justify-content-between'>
+                <div className='d-flex flex-column'>
+                    <p><strong>Size:</strong> {raceInfo.size}</p>
+                    <p><strong>Speed:</strong> {raceInfo.speed} feet</p>
+                </div>
+                <div>
+                    <strong>Ability Bonuses:</strong>
+                    {raceInfo.ability_bonuses.map((el, index) => <div key={index}>- {el}</div>)}
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 </div>
 
