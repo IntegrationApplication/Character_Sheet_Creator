@@ -19,15 +19,15 @@ import { CharacterDTO_t } from './types/DTO/CharacterDTO_t';
 /******************************************************************************/
 
 const Menu = ["Race", "Class", "Stats", "Attacks", "Infos"];
-const characterApiHost = "https://localhost:7145/Character";
+const characterApiHost = "http://0.0.0.0:8080/Character";
 
 /******************************************************************************/
 /* Functions                                                                  */
 /******************************************************************************/
 
-const fetchCharacterDto = async (idGame: number, idPlayer: number): Promise<CharacterDTO_t> => {
+const fetchCharacterDto = async (idGame: string, idPlayer: string): Promise<CharacterDTO_t> => {
   // the type of the json object match CharacterDTO_t
-  return fetch(`${characterApiHost}/GetCharacter?idPlayer=${idGame}&idGame=${idPlayer}`)
+  return fetch(`${characterApiHost}/GetCharacter?idPlayer=${idPlayer}&idGame=${idGame}`)
       .then((data: any) => {
               let characterDTO = new CharacterDTO_t();
               let jsonObject = data.json();
@@ -121,7 +121,7 @@ const updateRaceInfo = (
         let bonuses :string[] = [];
         if (data.ability_bonuses !== undefined )
           bonuses = data.ability_bonuses.map(
-        (el:any) => 
+        (el:any) =>
           `bonus for ${el.ability_score.name} of ${el.bonus}`)
         set_raceInfo(new Race_t(data.name,data.size,data.alignment,bonuses, data.language_desc,data.age,data.speed))
       })
@@ -138,7 +138,7 @@ const updateClassInfo = (
         let equipements : string[] = [];
         let proficiencies: string[] = [];
         if (data.proficiencies !== undefined)
-        {  
+        {
           equipements = data.starting_equipment.map((el: any) => el.equipment.name)
           proficiencies = data.proficiencies.map((el:any) => el.name);
         }
@@ -146,8 +146,11 @@ const updateClassInfo = (
       })
 }
 
-const saveCharacter = (idGame: number, idPlayer: number, characterDTO: CharacterDTO_t) => {
-  fetch(`${characterApiHost}/UpdateCharacter?idPlayer=${idGame}&idGame=${idPlayer}`, {
+const saveCharacter = (idGame: string, idPlayer: string, characterDTO: CharacterDTO_t) => {
+    console.log(idGame);
+    console.log(idPlayer);
+    console.log(characterDTO);
+  fetch(`${characterApiHost}/UpdateCharacter?idPlayer=${idPlayer}&idGame=${idGame}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -159,8 +162,8 @@ const saveCharacter = (idGame: number, idPlayer: number, characterDTO: Character
 
 const getUrlParams = () => {
     const queryParameters = new URLSearchParams(window.location.search);
-    const idGame = parseInt(queryParameters.get("idGame") ?? "1");
-    const idPlayer = parseInt(queryParameters.get("idPlayer") ?? "1");
+    const idGame = queryParameters.get("idGame") ?? "1";
+    const idPlayer = queryParameters.get("idPlayer") ?? "1";
     return { idGame, idPlayer };
 }
 

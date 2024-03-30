@@ -5,8 +5,8 @@ import { AttackDTO_t } from "./AttackDTO_t";
 
 export class CharacterDTO_t {
     id: number = 0;
-    idGame: number = 0;
-    idPlayer: number = 0;
+    idGame: string = "";
+    idPlayer: string = "";
     name: string = "";
     className: string = "";
     raceName: string = "";
