@@ -1,6 +1,4 @@
-import { Ability_t } from "../Ability_t";
-import { Attack_t } from "../Attack_t";
-import { Character_t } from "../Character_t";
+import { abilitiesNames, Character_t } from "../Character_t";
 import { AttackDTO_t } from "./AttackDTO_t";
 
 export class CharacterDTO_t {
@@ -40,14 +38,18 @@ export class CharacterDTO_t {
         this.hpMax = character.HpMax;
         this.hitDiceNumber = character.hitdice[0];
         this.hitDiceValue = character.hitdice[1];
-        character.Abilities.forEach((ability) => {
+
+        abilitiesNames.forEach((_, idx) => {
+            const ability = character.Abilities[idx];
             this.stats.push(ability.value);
             this.proefficiencies.push(ability.proefficient);
-        });
+        })
+
         character.Skills.forEach((skill) => {
             this.skills.push(skill.coeff);
             this.proefficiencies.push(skill.proefficient);
         });
+
         character.Attacks.forEach(attack => this.attacks.push(new
                     AttackDTO_t(attack)));
         this.proefficiencyBonus = character.ProefficiencyBunus;

@@ -90,6 +90,7 @@ export class Character_t {
         })
 
         // update stats
+        this.Abilities = []
         for (let i = 0; i < 6; ++i) {
             this.Abilities.push(new Ability_t(
                         abilitiesNames[i],
@@ -99,6 +100,7 @@ export class Character_t {
         }
 
         // update skills (i starts at 6 as we skip the saving throws)
+        this.Skills = []
         for (let i = 6; i < 24; ++i) {
             this.Skills.push(new Skill_t(
                         skillsNames[i - 6][0],
