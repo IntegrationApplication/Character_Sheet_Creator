@@ -109,6 +109,14 @@ export class Character_t {
                         dto.skills[i]));
         }
 
+        for (let i = 0; i < 6; ++i) {
+            this.Skills.push(new Skill_t(
+                        `saving throw ${abilitiesNames[i]}`,
+                        abilitiesNames[i],
+                        dto.proefficiencies[i],
+                        dto.skills[i]));
+        }
+
         this.Race = new Race_t(dto.raceName,"","",[],"","",0);
     }
 }

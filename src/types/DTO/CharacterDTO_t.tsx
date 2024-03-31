@@ -39,10 +39,13 @@ export class CharacterDTO_t {
         this.hitDiceNumber = character.hitdice[0];
         this.hitDiceValue = character.hitdice[1];
 
-        abilitiesNames.forEach((_, idx) => {
-            const ability = character.Abilities[idx];
-            this.stats.push(ability.value);
-            this.proefficiencies.push(ability.proefficient);
+        abilitiesNames.forEach((name) => {
+            const ability = character.Abilities.find(ability => ability.type === name);
+            if (ability) {
+                this.stats.push(ability.value);
+                const proefficient = character.Skills.find(skill => skill.ability === name)?.proefficient || false;
+                this.proefficiencies.push(proefficient);
+            }
         })
 
         character.Skills.forEach((skill) => {
