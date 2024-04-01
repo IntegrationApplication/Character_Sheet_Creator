@@ -120,7 +120,6 @@ const getUrlParams = () => {
 const updateStats = (
         setAbilities: React.Dispatch<React.SetStateAction<Ability_t[]>>,
         setSkills: React.Dispatch<React.SetStateAction<Skill_t[]>>,
-        setSavings: React.Dispatch<React.SetStateAction<Skill_t[]>>,
         character: Character_t
 ) => {
     let savings = new Array<Skill_t>();
@@ -132,7 +131,6 @@ const updateStats = (
                     ability.modificator))
     });
     setAbilities(character.Abilities);
-    // setSavings(savings);
     setSkills(character.Skills);
 }
 
@@ -147,7 +145,6 @@ function App() {
   // List of data
   const [abilities, setAbilities] = useState<Ability_t[]>([]);
   const [skills, setSkills] = useState<Skill_t[]>([]);
-  const [savings, setSavings] = useState<Skill_t[]>([]);
   const [races, setRaces] = useState<string[]>([]);
   const [raceSelected, setRaceSelected] = useState<string>("");
   const [raceInfo, setRaceInfo] = useState<Race_t>(new Race_t("","","",[],"","",0));
@@ -172,7 +169,7 @@ function App() {
               setRaceSelected(character.Race.name);
               setClassSelected(character.Class.name);
               console.log(character);
-              updateStats(setAbilities, setSkills, setSavings, character);
+              updateStats(setAbilities, setSkills, character);
           })
           .catch(error => console.log(error) );
   }, []);
@@ -218,7 +215,7 @@ function App() {
         <div className='d-flex row ms-5'>
           {menu_index === 0 && <Race raceInfo={raceInfo} set_raceSelected={setRaceSelected} races={races} />}
           {menu_index === 1 && <Class classes={classes} classInfo={classInfo} set_ClassSelected={setClassSelected} />}
-          {menu_index === 2 && <Stat abilities={abilities} set_abilities={setAbilities} skills={skills} set_skills={setSkills} savings={savings} set_savings={setSavings} />}
+          {menu_index === 2 && <Stat abilities={abilities} set_abilities={setAbilities} skills={skills} set_skills={setSkills} />}
           {menu_index === 3 && <Attacks character={character} setCharacter={setCharacter}/>}
           {menu_index === 4 && <Informations character={character} setCharacter={setCharacter}/>}
         </div>

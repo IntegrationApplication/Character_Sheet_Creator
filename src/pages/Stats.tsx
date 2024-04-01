@@ -7,7 +7,7 @@ import cloneDeep from 'lodash/fp/cloneDeep'
 
 
 
-export function Stat({ abilities, set_abilities, skills, set_skills, savings, set_savings }: { abilities: Ability_t[], set_abilities: any, skills: Skill_t[], set_skills: any, savings:Skill_t[],set_savings:any }) {
+export function Stat({ abilities, set_abilities, skills, set_skills }: { abilities: Ability_t[], set_abilities: any, skills: Skill_t[], set_skills: any }) {
 
     // Function to display one ability
     const AbilityDisplay = ({ ability }: { ability: Ability_t }) =>
@@ -59,15 +59,6 @@ export function Stat({ abilities, set_abilities, skills, set_skills, savings, se
             })
             return temp
         })
-        set_savings((skills: Skill_t[]) => {
-            let temp: Skill_t[] = cloneDeep(skills);
-            temp.forEach((skill: Skill_t) => {
-                const ability = abilities.find((ability) => skill.ability === ability.type)
-                skill.coeff = ability ? ability.modificator : 0;
-                skill.coeff += skill.proefficient ? 2 : 0;
-            })
-            return temp
-        })
     }, [abilities])
 
     // React Element to render
@@ -79,7 +70,6 @@ export function Stat({ abilities, set_abilities, skills, set_skills, savings, se
                 </div>
                 <div className='d-flex row'>
                     {skills.map((skill: Skill_t) => <SkillDisplay skill={skill} setter={set_skills} key={skill.name} />)}
-                    {savings.map((skill: Skill_t) => <SkillDisplay skill={skill} setter={set_savings} key={skill.name} />)}
                 </div>
             </div>
         </div>
