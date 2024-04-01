@@ -43,7 +43,7 @@ export class CharacterDTO_t {
             const ability = character.Abilities.find(ability => ability.type === name);
             if (ability) {
                 this.stats.push(ability.value);
-                const proefficient = character.Skills.find(skill => skill.ability === name)?.proefficient || false;
+                const proefficient = character.Skills.find(skill => skill.name === `saving throw ${name}`)?.proefficient || false;
                 this.proefficiencies.push(proefficient);
             }
         })
